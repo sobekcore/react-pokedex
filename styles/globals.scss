@@ -1,1 +1,6 @@
+@import "customize-bulma";
 @import "bulma/bulma";
+
+img {
+  user-select: none;
+}
