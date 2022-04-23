@@ -1,14 +1,23 @@
 import { useState, useEffect } from "react";
 import { getAllPokemons } from "services/api";
+import { store } from "store/store";
 
 import PokemonLoading from "components/PokemonLoading";
-import Pokemon from "components/PokemonItem";
+import PokemonItem from "components/PokemonItem";
 
 const PokemonList = () => {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(!store.getState().pokemonMainList.length);
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
+    const pokemonMainList = store.getState().pokemonMainList;
+
+    if (pokemonMainList.length > 0) {
+      setPokemons(pokemonMainList);
+      setLoading(false);
+      return;
+    }
+
     getAllPokemons()
       .then((data) => setPokemons(data.results))
       .then(() => setLoading(false));
@@ -22,7 +31,7 @@ const PokemonList = () => {
       {!isLoading && (
         <ul>
           {pokemons.map((pokemon) => (
-            <Pokemon key={pokemon.name} pokemon={pokemon} />
+            <PokemonItem key={pokemon.name} pokemon={pokemon} />
           ))}
         </ul>
       )}

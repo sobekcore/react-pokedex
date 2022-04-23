@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
 import { getByFullEndpoint } from "services/api";
+import { store } from "store/store";
+import { pokemonMainList } from "store/actions";
 
 import Link from "next/link";
 import PokemonLoading from "components/PokemonLoading";
 import PokemonImage from "components/PokemonImage";
 
 const PokemonItem = (props) => {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(!store.getState().pokemonMainList.length);
   const [pokemon, setPokemon] = useState({});
 
   useEffect(() => {
+    if (!props.pokemon.url) {
+      setPokemon(props.pokemon);
+      setLoading(false);
+      return;
+    }
+
     getByFullEndpoint(props.pokemon.url)
-      .then((data) => setPokemon(data))
+      .then((data) => { setPokemon(data); store.dispatch(pokemonMainList.add(data)); })
       .then(() => setLoading(false));
-  }, [props.pokemon.url]);
+  }, [props.pokemon]);
 
   return (
     <div className="m-4">
@@ -28,7 +36,7 @@ const PokemonItem = (props) => {
           </Link>
           <span role="presentation" className="is-flex-grow-1"></span>
           <ul className="is-flex is-flex-gap-4">
-            {pokemon.types.map(({ type }) => {
+            {pokemon.types && pokemon.types.map(({ type }) => {
               return <li key={type.name}>{type.name}</li>;
             })}
           </ul>
