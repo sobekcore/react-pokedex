@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+/**
+ * @param {import("types/Pokemon").Pokemon} props.pokemon
+ * @returns {JSX.Element}
+ */
 const PokemonImage = (props) => {
   return (
     <>

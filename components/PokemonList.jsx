@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { getAllPokemons } from "services/api";
 import { store } from "store/store";
 
-import PokemonLoading from "components/PokemonLoading";
 import PokemonItem from "components/PokemonItem";
 
+/**
+ * @returns {JSX.Element}
+ */
 const PokemonList = () => {
   const [isLoading, setLoading] = useState(!store.getState().pokemonMainList.length);
   const [pokemons, setPokemons] = useState([]);
@@ -25,10 +27,7 @@ const PokemonList = () => {
 
   return (
     <>
-      {isLoading && (
-        <PokemonLoading />
-      )}
-      {!isLoading && (
+      {!isLoading && pokemons && (
         <ul>
           {pokemons.map((pokemon) => (
             <PokemonItem key={pokemon.name} pokemon={pokemon} />

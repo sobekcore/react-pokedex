@@ -1,5 +1,8 @@
 import PokemonList from "components/PokemonList";
 
+/**
+ * @returns {JSX.Element}
+ */
 const PokemonListPage = () => {
   return (
     <main>

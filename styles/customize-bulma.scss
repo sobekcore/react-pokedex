@@ -6,6 +6,13 @@
   top: 0;
 }
 
+.is-absolute-centered {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
 /**
  * Custom overflow helpers
  */

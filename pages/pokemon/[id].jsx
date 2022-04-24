@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { getPokemonById } from "services/api";
+import styles from "styles/modules/PokemonPage.module.scss";
 
 import PokemonLoading from "components/PokemonLoading";
 import PokemonList from "components/PokemonList";
 import PokemonDetails from "components/Pokemon";
 
+/**
+ * @param {import("types/Pokemon").Pokemon} props.pokemon
+ * @returns {JSX.Element}
+ */
 const PokemonPage = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [pokemon, setPokemon] = useState({});
@@ -16,14 +21,14 @@ const PokemonPage = (props) => {
 
   return (
     <main className="is-flex is-full-width">
-      <aside className="is-sticky-top is-full-height is-overflow-y-scroll is-width-100">
+      <aside className={`${styles.list} is-sticky-top is-full-height is-overflow-y-scroll is-width-100`}>
         <PokemonList />
       </aside>
-      <section className="is-width-100">
+      <section className="is-relative is-width-100">
         {isLoading && (
           <PokemonLoading name={props.pokemon.name} />
         )}
-        {!isLoading && (
+        {!isLoading && pokemon && (
           <PokemonDetails pokemon={pokemon} />
         )}
       </section>
