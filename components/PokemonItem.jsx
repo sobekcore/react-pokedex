@@ -35,7 +35,7 @@ const PokemonItem = (props) => {
   };
 
   return (
-    <div className={`${styles.item} is-relative m-4`}>
+    <li className={`${styles.item} is-relative m-4`}>
       {isLoading && (
         <PokemonLoading name={props.pokemon.name} />
       )}
@@ -49,7 +49,7 @@ const PokemonItem = (props) => {
           <PokemonTypes pokemon={pokemon} />
         </div>
       )}
-    </div>
+    </li>
   )
 };
 

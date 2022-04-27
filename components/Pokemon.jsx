@@ -1,3 +1,5 @@
+import { translate } from "services/translate";
+
 import Link from "next/link";
 import PokemonImage from "components/PokemonImage";
 import PokemonTypes from "components/PokemonTypes";
@@ -13,7 +15,7 @@ const Pokemon = (props) => {
         <Link href="/pokemon">
           <button className="button is-small">
             <span className="is-size-4 mr-2">&larr;</span>
-            <span>Go back to list</span>
+            <span>{translate("Go back to list")}</span>
           </button>
         </Link>
       </div>
@@ -27,12 +29,12 @@ const Pokemon = (props) => {
         <PokemonTypes pokemon={props.pokemon} />
       </div>
       <div className="block">
-        <h3 className="title is-5">Statistics</h3>
+        <h3 className="title is-5">{translate("Statistics")}</h3>
         <table className="table is-bordered">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Value</th>
+              <th>{translate("Name")}</th>
+              <th>{translate("Value")}</th>
             </tr>
           </thead>
           <tbody>
@@ -48,12 +50,12 @@ const Pokemon = (props) => {
         </table>
       </div>
       <div className="block">
-        <h3 className="title is-5">Abilites</h3>
+        <h3 className="title is-5">{translate("Abilites")}</h3>
         <table className="table is-bordered">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Hidden</th>
+              <th>{translate("Name")}</th>
+              <th>{translate("Hidden")}</th>
             </tr>
           </thead>
           <tbody>

@@ -1,3 +1,4 @@
+import { translate } from "services/translate";
 import Link from "next/link";
 
 /**
@@ -6,7 +7,9 @@ import Link from "next/link";
 const HomePage = () => {
   return (
     <main className="is-flex is-justify-content-center is-align-items-center is-full-width is-full-height">
-      <Link href="/pokemon"><button className="button">Open the Pokédex</button></Link>
+      <Link href="/pokemon">
+        <button className="button">{translate("Open the")} Pokédex</button>
+      </Link>
     </main>
   );
 };

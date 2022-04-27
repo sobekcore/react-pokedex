@@ -1,3 +1,5 @@
+import { translate } from "services/translate";
+
 /**
  * @param {string} props.name Name of a Pokemon to apply loader on
  * @returns {JSX.Element}
@@ -8,7 +10,7 @@ const PokemonLoading = (props) => {
       <span className="is-flex is-justify-content-center is-align-items-center is-flex-gap-3">
         <span className="loader is-size-4"></span>
         <span className="has-text-grey-light">
-          Loading {" "}
+          {translate("Loading")} {" "}
           {props.name
             ? <span className="is-capitalized">{props.name}</span>
             : <span>Pokemon</span>

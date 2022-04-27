@@ -1,3 +1,4 @@
+import { translate } from "services/translate";
 import Image from "next/image";
 
 /**
@@ -10,7 +11,7 @@ const PokemonImage = (props) => {
       {props.pokemon.sprites && (
         <Image
           src={props.pokemon.sprites.other["official-artwork"]["front_default"]}
-          alt={`${props.pokemon.name} artwork`}
+          alt={`${props.pokemon.name} ${translate("artwork")}`}
           width="100%"
           height="100%"
         />
