@@ -1,16 +1,10 @@
+import PokemonPagination from "configs/pokemon-pagination";
+
 const API_ENDPOINT = "https://pokeapi.co/api/v2/";
+const ITEMS_ON_PAGE = PokemonPagination.ITEMS_ON_PAGE;
 
 const generateEndpoint = (url) => {
   return API_ENDPOINT + url;
-};
-
-const getByFullEndpoint = (fullEndpoint) => {
-  return new Promise((resolve, reject) => {
-    fetch(fullEndpoint)
-      .then((response) => response.json())
-      .then((data) => resolve(data))
-      .catch((error) => reject(error));
-  });
 };
 
 const getPokemonById = (id) => {
@@ -22,18 +16,53 @@ const getPokemonById = (id) => {
   });
 };
 
-const getAllPokemons = () => {
+const getPokemonByName = (name) => {
   return new Promise((resolve, reject) => {
-    fetch(generateEndpoint("pokemon"))
+    fetch(generateEndpoint(`pokemon/${name}`))
       .then((response) => response.json())
       .then((data) => resolve(data))
       .catch((error) => reject(error));
   });
 };
 
+const getPokemonsByPage = (page) => {
+  const limit = `limit=${ITEMS_ON_PAGE}`;
+  const offset = `offset=${--page * ITEMS_ON_PAGE}`;
+
+  return new Promise((resolve, reject) => {
+    fetch(generateEndpoint(`pokemon?${limit}&${offset}`))
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch((error) => reject(error));
+  });
+};
+
+const getPageByPokemonName = (name) => {
+  // Limit is unfortunately magic number due to there no
+  // being other elegant way to fetch all Pokemons in PokéAPI
+  const limit = "limit=100000";
+
+  return new Promise((resolve, reject) => {
+    const getAllPokemons = new Promise((resolve) => {
+      fetch(generateEndpoint(`pokemon?${limit}`))
+        .then((response) => response.json())
+        .then((data) => resolve(data))
+        .catch((error) => reject(error));
+    });
+
+    getAllPokemons.then((data) => {
+      const pokemons = data.results;
+      const index = pokemons.findIndex((pokemon) => pokemon.name === name);
+      resolve(Math.ceil(++index / ITEMS_ON_PAGE));
+    });
+  });
+};
+
 export {
   API_ENDPOINT,
-  getByFullEndpoint,
+  ITEMS_ON_PAGE,
   getPokemonById,
-  getAllPokemons
+  getPokemonByName,
+  getPokemonsByPage,
+  getPageByPokemonName
 };

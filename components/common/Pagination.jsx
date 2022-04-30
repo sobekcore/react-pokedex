@@ -24,6 +24,8 @@ let lastPage = firstPage;
 
 /**
  * @param {Number} props.count
+ * @param {Function} props.onPageChange
+ * @param {Number} props.initialPage
  * @param {Number} props.itemsOnPage
  * @param {Number} props.pagesOnSides
  * @returns {JSX.Element}
@@ -33,6 +35,10 @@ const PaginationComponent = (props) => {
   const [currentPage, setCurrentPage] = useState(firstPage);
 
   useEffect(() => {
+    if (props.initialPage) {
+      setCurrentPage(props.initialPage);
+    }
+
     if (props.itemsOnPage) {
       itemsOnPage = props.itemsOnPage;
     }
@@ -51,6 +57,7 @@ const PaginationComponent = (props) => {
   const changeCurrentPage = (page) => {
     if (currentPage !== page && page >= firstPage && page <= lastPage) {
       setCurrentPage(page);
+      props.onPageChange(page);
     }
   };
 

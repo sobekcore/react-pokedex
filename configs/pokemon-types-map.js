@@ -1,4 +1,4 @@
-const pokemonTypesMap = {
+const PokemonTypesMap = {
   grass: "grass has-text-light",
   poison: "poison has-text-dark",
   fire: "fire has-text-light",
@@ -8,4 +8,4 @@ const pokemonTypesMap = {
   normal: "normal has-text-dark",
 };
 
-export default pokemonTypesMap;
+export default PokemonTypesMap;

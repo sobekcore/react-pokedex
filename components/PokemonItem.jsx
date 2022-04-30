@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getByFullEndpoint } from "services/api";
+import { getPokemonByName } from "services/api";
 import { store } from "store/store";
 import { pokemonMainList } from "store/actions";
 import styles from "styles/modules/PokemonItem.module.scss";
@@ -14,17 +14,19 @@ import PokemonTypes from "components/PokemonTypes";
  * @returns {JSX.Element}
  */
 const PokemonItem = (props) => {
-  const [isLoading, setLoading] = useState(!store.getState().pokemonMainList.length);
+  const [isLoading, setLoading] = useState(!store.getState().pokemonMainList.pokemons.length);
   const [pokemon, setPokemon] = useState();
 
   useEffect(() => {
     if (!props.pokemon.url) {
       setPokemon(props.pokemon);
-      setLoading(false);
       return;
     }
 
-    getByFullEndpoint(props.pokemon.url)
+    setLoading(true);
+    store.dispatch(pokemonMainList.clear());
+
+    getPokemonByName(props.pokemon.name)
       .then((data) => updatePokemonInStateAndStore(data))
       .then(() => setLoading(false));
   }, [props.pokemon]);

@@ -1,4 +1,4 @@
-import pokemonTypesMap from "configs/pokemon-types-map";
+import PokemonTypesMap from "configs/pokemon-types-map";
 import styles from "styles/modules/PokemonTypes.module.scss";
 
 /**
@@ -13,8 +13,8 @@ const PokemonTypes = (props) => {
           {props.pokemon.types.map(({ type }) => {
             let typeClassName = "tag";
 
-            if (pokemonTypesMap[type.name] && styles[type.name]) {
-              typeClassName = `tag ${styles[type.name]} ${pokemonTypesMap[type.name]}`;
+            if (PokemonTypesMap[type.name] && styles[type.name]) {
+              typeClassName = `tag ${styles[type.name]} ${PokemonTypesMap[type.name]}`;
             }
 
             return (

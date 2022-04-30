@@ -8,10 +8,18 @@ import Image from "next/image";
 const PokemonImage = (props) => {
   return (
     <>
-      {props.pokemon.sprites && (
+      {props.pokemon.sprites.other["official-artwork"]["front_default"] && (
         <Image
           src={props.pokemon.sprites.other["official-artwork"]["front_default"]}
           alt={`${props.pokemon.name} ${translate("artwork")}`}
+          width="100%"
+          height="100%"
+        />
+      )}
+      {!props.pokemon.sprites.other["official-artwork"]["front_default"] && (
+        <Image
+          src="/assets/no-image.png"
+          alt={translate("No Pokemon image found")}
           width="100%"
           height="100%"
         />
