@@ -1,5 +1,5 @@
 /**
- * @typedef {object} PokemonPrefetch
+ * @typedef {Object} PokemonPrefetch
  */
 
 export default PokemonPrefetch;

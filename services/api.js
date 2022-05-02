@@ -1,12 +1,27 @@
 import PokemonPagination from "configs/pokemon-pagination";
 
-const API_ENDPOINT = "https://pokeapi.co/api/v2/";
+/**
+ * @var {URL}
+ */
+const API_ENDPOINT = new URL("https://pokeapi.co/api/v2/");
+
+/**
+ * @var {number}
+ */
 const ITEMS_ON_PAGE = PokemonPagination.ITEMS_ON_PAGE;
 
+/**
+ * @param {string} url
+ * @returns
+ */
 const generateEndpoint = (url) => {
   return API_ENDPOINT + url;
 };
 
+/**
+ * @param {number} id
+ * @returns
+ */
 const getPokemonById = (id) => {
   return new Promise((resolve, reject) => {
     fetch(generateEndpoint(`pokemon/${id}`))
@@ -16,6 +31,10 @@ const getPokemonById = (id) => {
   });
 };
 
+/**
+ * @param {string} name
+ * @returns
+ */
 const getPokemonByName = (name) => {
   return new Promise((resolve, reject) => {
     fetch(generateEndpoint(`pokemon/${name}`))
@@ -25,6 +44,10 @@ const getPokemonByName = (name) => {
   });
 };
 
+/**
+ * @param {number} page
+ * @returns
+ */
 const getPokemonsByPage = (page) => {
   const limit = `limit=${ITEMS_ON_PAGE}`;
   const offset = `offset=${--page * ITEMS_ON_PAGE}`;
@@ -37,6 +60,10 @@ const getPokemonsByPage = (page) => {
   });
 };
 
+/**
+ * @param {string} name
+ * @returns
+ */
 const getPageByPokemonName = (name) => {
   // Limit is unfortunately magic number due to there no
   // being other elegant way to fetch all Pokemons in PokéAPI

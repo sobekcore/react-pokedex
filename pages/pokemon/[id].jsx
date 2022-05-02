@@ -39,7 +39,7 @@ const PokemonPage = (props) => {
     <main className="is-flex is-full-width">
       <aside className={`${styles.list} is-sticky-top is-full-height is-overflow-y-scroll is-width-100`}>
         {page && (
-          <PokemonList initialPage={page} />
+          <PokemonList initialPage={page} scrollToPokemon={props.pokemon.name} />
         )}
       </aside>
       <section className="is-relative is-width-100">

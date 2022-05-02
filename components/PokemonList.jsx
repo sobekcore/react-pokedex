@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ITEMS_ON_PAGE, getPokemonsByPage } from "services/api";
 import PokemonPagination from "configs/pokemon-pagination";
 import { store } from "store/store";
@@ -8,7 +8,8 @@ import PokemonItem from "components/PokemonItem";
 import Pagination from "components/common/Pagination";
 
 /**
- * @param {Number} props.initialPage
+ * @param {number} props.initialPage
+ * @param {string} props.scrollToPokemon
  * @returns {JSX.Element}
  */
 const PokemonList = (props) => {
@@ -16,6 +17,7 @@ const PokemonList = (props) => {
   const [pokemons, setPokemons] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(PokemonPagination.INITIAL_PAGE);
+  const pokemonListElement = useRef(null);
 
   useEffect(() => {
     const pokemonMainListPokemons = store.getState().pokemonMainList.pokemons;
@@ -43,7 +45,8 @@ const PokemonList = (props) => {
 
     getPokemonsByPage(page)
       .then((data) => setPokemonsAndCount(data))
-      .then(() => setLoading(false));
+      .then(() => setLoading(false))
+      .then(() => scrollToListElement());
   };
 
   const setPokemonsAndCount = (data) => {
@@ -52,14 +55,21 @@ const PokemonList = (props) => {
     store.dispatch(pokemonMainList.count(data.count));
   };
 
+  const scrollToListElement = () => {
+    if (pokemonListElement.current instanceof HTMLElement) {
+      pokemonListElement.current.scrollIntoView();
+    }
+  };
+
   return (
     <>
       {!isLoading && pokemons && (
         <>
-          <ul>
-            {pokemons.map((pokemon) => (
-              <PokemonItem key={pokemon.name} pokemon={pokemon} />
-            ))}
+          <ul ref={pokemonListElement}>
+            {pokemons.map((pokemon) => {
+              const scroll = props.scrollToPokemon === pokemon.name;
+              return <PokemonItem key={pokemon.name} pokemon={pokemon} scrollIntoView={scroll} />;
+            })}
           </ul>
           <Pagination
             count={count}

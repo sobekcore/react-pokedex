@@ -3,31 +3,31 @@ import { Pagination } from "services/enums";
 import { translate } from "services/translate";
 
 /**
- * @var {Number} itemsOnPage Number of items shown on each page
+ * @var {number} itemsOnPage Number of items shown on each page
  */
  let itemsOnPage = 20;
 
 /**
- * @var {Number} pagesOnSides Number of pages to show on each side of the current page
+ * @var {number} pagesOnSides Number of pages to show on each side of the current page
  */
 let pagesOnSides = 1;
 
 /**
- * @var {Number} firstPage First pagination page
+ * @var {number} firstPage First pagination page
  */
 let firstPage = 1;
 
 /**
- * @var {Number} lastPage Last pagination page
+ * @var {number} lastPage Last pagination page
  */
 let lastPage = firstPage;
 
 /**
- * @param {Number} props.count
+ * @param {number} props.count
  * @param {Function} props.onPageChange
- * @param {Number} props.initialPage
- * @param {Number} props.itemsOnPage
- * @param {Number} props.pagesOnSides
+ * @param {number} props.initialPage
+ * @param {number} props.itemsOnPage
+ * @param {number} props.pagesOnSides
  * @returns {JSX.Element}
  */
 const PaginationComponent = (props) => {

@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import { Store } from "services/enums";
-
 import { pokemonMainListReducerState } from "store/states";
 
 const pokemonMainListReducer = (state = pokemonMainListReducerState, action) => {

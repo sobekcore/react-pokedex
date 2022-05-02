@@ -1,5 +1,5 @@
 /**
- * @typedef {object} Pokemon
+ * @typedef {Object} Pokemon
  */
 
 export default Pokemon;
