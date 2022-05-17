@@ -123,7 +123,7 @@ const PaginationComponent = (props) => {
 
   return (
     <section className="is-sticky-bottom">
-      <div className="p-3 has-background-white">
+      <div className="has-background-white p-3">
         <nav className="pagination" role="navigation">
           <a className="pagination-previous" onClick={() => changeCurrentPage(currentPage - 1)}>
             {translate("Previous")}

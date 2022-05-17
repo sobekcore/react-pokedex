@@ -65,7 +65,7 @@ const PokemonList = (props) => {
     <>
       {!isLoading && pokemons && (
         <>
-          <ul ref={pokemonListElement}>
+          <ul ref={pokemonListElement} className="has-background-white">
             {pokemons.map((pokemon) => {
               const scroll = props.scrollToPokemon === pokemon.name;
               return <PokemonItem key={pokemon.name} pokemon={pokemon} scrollIntoView={scroll} />;

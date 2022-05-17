@@ -1,3 +1,7 @@
+const Responsive = {
+  MOBILE_BREAKPOINT: 1215,
+};
+
 const Store = {
   POKEMON_MAIN_LIST_ADD: "POKEMON_MAIN_LIST_ADD",
   POKEMON_MAIN_LIST_CLEAR: "POKEMON_MAIN_LIST_CLEAR",
@@ -12,4 +16,4 @@ const Pagination = {
   TYPE_ELEMENT_NONE: "PAGINATION_ELEMENT_NONE",
 };
 
-export { Store, Pagination };
+export { Responsive, Store, Pagination };

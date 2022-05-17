@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPokemonById, getPageByPokemonName } from "services/api";
+import { checkIfMobile } from "services/responsive";
 import { store } from "store/store";
 import styles from "styles/modules/PokemonPage.module.scss";
 
@@ -13,10 +14,12 @@ import Pokemon from "components/Pokemon";
  */
 const PokemonPage = (props) => {
   const [isLoading, setLoading] = useState(true);
+  const [isMobile, setMobile] = useState(false);
   const [pokemon, setPokemon] = useState({});
   const [page, setPage] = useState(null);
 
   useEffect(() => {
+    checkForMobileState();
     setPokemon(props.pokemon);
     setPageBasedOnConditions(props.pokemon.name);
     setLoading(false);
@@ -33,15 +36,25 @@ const PokemonPage = (props) => {
 
     getPageByPokemonName(name)
       .then((page) => setPage(page));
-  }
+  };
+
+  const checkForMobileState = () => {
+    setMobile(checkIfMobile());
+
+    window.addEventListener("resize", () => {
+      setMobile(checkIfMobile());
+    });
+  };
 
   return (
-    <main className="is-flex is-full-width">
-      <aside className={`${styles.list} is-sticky-top is-full-height is-overflow-y-scroll is-width-100`}>
-        {page && (
-          <PokemonList initialPage={page} scrollToPokemon={props.pokemon.name} />
-        )}
-      </aside>
+    <main className="is-flex is-width-100">
+      {!isMobile && (
+        <aside className={`${styles.list} is-sticky-top is-full-height is-overflow-y-scroll is-width-100`}>
+          {page && (
+            <PokemonList initialPage={page} scrollToPokemon={props.pokemon.name} />
+          )}
+        </aside>
+      )}
       <section className="is-relative is-width-100">
         {isLoading && (
           <PokemonLoading name={props.pokemon.name} />
