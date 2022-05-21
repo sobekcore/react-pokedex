@@ -1,0 +1,38 @@
+.handler {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    content: "";
+    transition: 200ms all ease;
+    transition-delay: 150ms;
+  }
+
+  &:hover {
+    &::after {
+      box-shadow: 0 0 10px $link;
+      background: $link;
+    }
+  }
+
+  &.y-axis {
+    cursor: row-resize;
+
+    &::after {
+      height: 2px;
+      width: 100%;
+      margin-top: -1px;
+    }
+  }
+
+  &.x-axis {
+    cursor: col-resize;
+
+    &::after {
+      height: 100%;
+      width: 2px;
+      margin-left: -1px;
+    }
+  }
+}

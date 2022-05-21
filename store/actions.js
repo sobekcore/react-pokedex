@@ -1,5 +1,14 @@
 import { Store } from "services/enums";
 
+const ui = {
+  pokemonDetailsWidth: (width) => {
+    return {
+      type: Store.UI_POKEMON_DETAILS_WIDTH,
+      width: width,
+    };
+  },
+};
+
 const pokemonMainList = {
   add: (pokemon) => {
     return {
@@ -26,4 +35,4 @@ const pokemonMainList = {
   },
 };
 
-export { pokemonMainList };
+export { ui, pokemonMainList };

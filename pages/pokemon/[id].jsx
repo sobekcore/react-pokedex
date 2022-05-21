@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
+import { Handler } from "services/enums";
 import { getPokemonById, getPageByPokemonName } from "services/api";
 import { checkIfMobile } from "services/responsive";
 import { store } from "store/store";
+import { ui } from "store/actions";
 import styles from "styles/modules/PokemonPage.module.scss";
 
-import Handler from "components/common/Handler";
+import InitializeHandler from "components/common/Handler";
 import PokemonLoading from "components/PokemonLoading";
 import PokemonList from "components/PokemonList";
 import Pokemon from "components/Pokemon";
@@ -49,17 +51,25 @@ const PokemonPage = (props) => {
     setMobile(isMobile);
 
     if (!isMobile) {
-      const styles = window.getComputedStyle(pokemonWrapperElement.current);
-      const width = Math.round(parseInt(styles.width) / 2);
+      const uiPokemonDetailsWidth = store.getState().ui.pokemonDetailsWidth;
+      let width = uiPokemonDetailsWidth;
+
+      if (!uiPokemonDetailsWidth) {
+        const wrapperStyles = window.getComputedStyle(pokemonWrapperElement.current);
+        const wrapperWidth = parseInt(wrapperStyles.width);
+        width = Math.round(wrapperWidth / 2);
+        store.dispatch(ui.pokemonDetailsWidth(width));
+      }
+
       pokemonDetailsElement.current.style.width = `${width}px`;
     }
 
     window.addEventListener("resize", () => {
-      const isMobile = checkIfMobile();
-      setMobile(isMobile);
+      const isMobileAfterResize = checkIfMobile();
 
-      if (isMobile) {
+      if (isMobileAfterResize !== isMobile) {
         pokemonDetailsElement.current.style.width = null;
+        checkForMobileState();
       }
     });
   };
@@ -69,15 +79,20 @@ const PokemonPage = (props) => {
       const maxElementWidth = window.innerWidth - 580;
       const minElementWidth = 250;
 
-      Handler(
+      InitializeHandler(
         resizeHandlerElement.current,
         pokemonDetailsElement.current,
         pokemonWrapperElement.current,
         maxElementWidth,
         minElementWidth,
-        true,
+        Handler.DIRECTION_RIGHT,
+        savePokemonDetailsWidth,
       );
     }
+  };
+
+  const savePokemonDetailsWidth = (width) => {
+    store.dispatch(ui.pokemonDetailsWidth(width));
   };
 
   return (
@@ -90,7 +105,7 @@ const PokemonPage = (props) => {
             )}
           </aside>
           <div className="is-relative">
-            <div ref={resizeHandlerElement} className={`${styles.handler} is-absolute is-height-100`}></div>
+            <div ref={resizeHandlerElement} className={`${styles.handler} handler is-absolute is-height-100`}></div>
           </div>
         </>
       )}

@@ -1,6 +1,16 @@
 import { combineReducers } from "redux";
 import { Store } from "services/enums";
-import { pokemonMainListReducerState } from "store/states";
+import { uiReducerState, pokemonMainListReducerState } from "store/states";
+
+const uiReducer = (state = uiReducerState, action) => {
+  switch (action.type) {
+    case Store.UI_POKEMON_DETAILS_WIDTH:
+      return { ...state, pokemonDetailsWidth: action.width };
+
+    default:
+      return state;
+  }
+};
 
 const pokemonMainListReducer = (state = pokemonMainListReducerState, action) => {
   switch (action.type) {
@@ -31,6 +41,7 @@ const pokemonMainListReducer = (state = pokemonMainListReducerState, action) => 
 };
 
 const reducer = combineReducers({
+  ui: uiReducer,
   pokemonMainList: pokemonMainListReducer,
 });
 
