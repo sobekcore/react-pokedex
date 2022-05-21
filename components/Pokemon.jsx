@@ -12,7 +12,7 @@ import PokemonTypes from "components/PokemonTypes";
 const Pokemon = (props) => {
   return (
     <>
-      <div className={`${styles.back} has-background-white p-3`}>
+      <div className={`${styles.back} is-sticky-top is-width-100 has-background-white p-3`}>
         <Link href="/pokemon">
           <button className="button is-fullwidth">
             <span className="is-size-4 mr-2">&larr;</span>
