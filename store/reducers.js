@@ -7,6 +7,9 @@ const uiReducer = (state = uiReducerState, action) => {
     case Store.UI_POKEMON_DETAILS_WIDTH:
       return { ...state, pokemonDetailsWidth: action.width };
 
+    case Store.UI_POKEMON_LIST_HIGHLIGHT:
+      return { ...state, pokemonListHighlight: action.highlight };
+
     default:
       return state;
   }

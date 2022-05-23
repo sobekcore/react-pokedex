@@ -7,6 +7,12 @@ const ui = {
       width: width,
     };
   },
+  pokemonListHighlight: (highlight) => {
+    return {
+      type: Store.UI_POKEMON_LIST_HIGHLIGHT,
+      highlight: highlight,
+    };
+  },
 };
 
 const pokemonMainList = {

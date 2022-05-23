@@ -65,7 +65,7 @@ const Pokemon = (props) => {
                 return (
                   <tr key={ability.ability.name}>
                     <td>{ability.ability.name}</td>
-                    <td>{ability.is_hidden ? 'yes' : 'no'}</td>
+                    <td>{ability.is_hidden ? "yes" : "no"}</td>
                   </tr>
                 );
               })}

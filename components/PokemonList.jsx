@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { ITEMS_ON_PAGE, getPokemonsByPage } from "services/api";
 import PokemonPagination from "configs/pokemon-pagination";
+import { getPokemonsByPage } from "services/api";
 import { store } from "store/store";
 import { pokemonMainList } from "store/actions";
 
@@ -75,7 +75,7 @@ const PokemonList = (props) => {
             count={count}
             onPageChange={fetchPokemonsAndSetState}
             initialPage={page}
-            itemsOnPage={ITEMS_ON_PAGE}
+            itemsOnPage={PokemonPagination.ITEMS_ON_PAGE}
           />
         </>
       )}

@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import ClassLogic from "configs/class-logic";
 import { getPokemonByName } from "services/api";
 import { store } from "store/store";
-import { pokemonMainList } from "store/actions";
+import { ui, pokemonMainList } from "store/actions";
 import styles from "styles/modules/PokemonItem.module.scss";
 
 import Link from "next/link";
@@ -40,10 +41,13 @@ const PokemonItem = (props) => {
   };
 
   const scrollToItemElement = () => {
-    if (props.scrollIntoView) {
+    const uiPokemonListHighlight = store.getState().ui.pokemonListHighlight;
+
+    if (uiPokemonListHighlight && props.scrollIntoView) {
       setTimeout(() => {
         pokemonItemElement.current.scrollIntoView();
-        pokemonItemElement.current.classList.add('is-highlighted');
+        pokemonItemElement.current.classList.add(ClassLogic.HIGHLIGHTED);
+        store.dispatch(ui.pokemonListHighlight(false));
       });
     }
   };

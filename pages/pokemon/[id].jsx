@@ -18,6 +18,7 @@ import Pokemon from "components/Pokemon";
 const PokemonPage = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [isMobile, setMobile] = useState(false);
+  const [isHandler, setHandler] = useState(false);
   const [pokemon, setPokemon] = useState({});
   const [page, setPage] = useState(null);
 
@@ -26,7 +27,7 @@ const PokemonPage = (props) => {
   const resizeHandlerElement = useRef(null);
 
   useEffect(() => {
-    checkForMobileState();
+    checkForMobileState(false);
     setPokemon(props.pokemon);
     setPageBasedOnConditions(props.pokemon.name);
     activateMovableHandler();
@@ -46,15 +47,15 @@ const PokemonPage = (props) => {
       .then((page) => setPage(page));
   };
 
-  const checkForMobileState = () => {
-    const isMobile = checkIfMobile();
-    setMobile(isMobile);
+  const checkForMobileState = (force) => {
+    const isMobileInitially = checkIfMobile();
+    setMobile(isMobileInitially);
 
-    if (!isMobile) {
+    if (!isMobileInitially) {
       const uiPokemonDetailsWidth = store.getState().ui.pokemonDetailsWidth;
       let width = uiPokemonDetailsWidth;
 
-      if (!uiPokemonDetailsWidth) {
+      if (force || !uiPokemonDetailsWidth) {
         const wrapperStyles = window.getComputedStyle(pokemonWrapperElement.current);
         const wrapperWidth = parseInt(wrapperStyles.width);
         width = Math.round(wrapperWidth / 2);
@@ -64,12 +65,15 @@ const PokemonPage = (props) => {
       pokemonDetailsElement.current.style.width = `${width}px`;
     }
 
-    window.addEventListener("resize", () => {
-      const isMobileAfterResize = checkIfMobile();
+    if (force) {
+      if (!isHandler) activateMovableHandler();
+      return;
+    }
 
-      if (isMobileAfterResize !== isMobile) {
+    window.addEventListener("resize", () => {
+      if (pokemonDetailsElement.current instanceof HTMLElement) {
         pokemonDetailsElement.current.style.width = null;
-        checkForMobileState();
+        checkForMobileState(true);
       }
     });
   };
@@ -88,6 +92,8 @@ const PokemonPage = (props) => {
         Handler.DIRECTION_RIGHT,
         savePokemonDetailsWidth,
       );
+
+      setHandler(true);
     }
   };
 

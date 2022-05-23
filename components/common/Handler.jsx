@@ -1,14 +1,20 @@
+import ClassLogic from "configs/class-logic";
 import { Handler } from "services/enums";
 
 /**
- * @var {string} Y_AXIS
+ * @var {string} Y_AXIS Constant for movable handler on Y axis
  */
 const Y_AXIS = "y-axis";
 
 /**
- * @var {string} X_AXIS
+ * @var {string} X_AXIS Constant for movable handler on X axis
  */
 const X_AXIS = "x-axis";
+
+/**
+ * @var {string} AXIS Axis of the movable handler component
+ */
+let AXIS = Y_AXIS;
 
 /**
  * @param {HTMLElement} handler An element that we want to grab
@@ -24,9 +30,9 @@ const HandlerComponent = (handler, element, wrapper, max, min, side, callback) =
   const MAX_SIZE = max;
   const MIN_SIZE = min;
   let FINAL_SIZE = 0;
-  let AXIS = null;
 
   const mouseDownHandler = () => {
+    document.body.classList.add(ClassLogic.UNSELECTABLE);
     document.addEventListener("mousemove", mouseMoveHandler);
     document.addEventListener("mouseup", mouseUpHandler);
   };
@@ -34,6 +40,7 @@ const HandlerComponent = (handler, element, wrapper, max, min, side, callback) =
   const mouseUpHandler = () => {
     document.removeEventListener("mousemove", mouseMoveHandler);
     document.removeEventListener("mouseup", mouseUpHandler);
+    document.body.classList.remove(ClassLogic.UNSELECTABLE);
 
     if (callback instanceof Function) {
       callback(FINAL_SIZE);

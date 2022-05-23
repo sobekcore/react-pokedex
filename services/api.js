@@ -6,11 +6,6 @@ import PokemonPagination from "configs/pokemon-pagination";
 const API_ENDPOINT = new URL("https://pokeapi.co/api/v2/");
 
 /**
- * @var {number}
- */
-const ITEMS_ON_PAGE = PokemonPagination.ITEMS_ON_PAGE;
-
-/**
  * @param {string} url
  * @returns
  */
@@ -49,8 +44,8 @@ const getPokemonByName = (name) => {
  * @returns
  */
 const getPokemonsByPage = (page) => {
-  const limit = `limit=${ITEMS_ON_PAGE}`;
-  const offset = `offset=${--page * ITEMS_ON_PAGE}`;
+  const limit = `limit=${PokemonPagination.ITEMS_ON_PAGE}`;
+  const offset = `offset=${--page * PokemonPagination.ITEMS_ON_PAGE}`;
 
   return new Promise((resolve, reject) => {
     fetch(generateEndpoint(`pokemon?${limit}&${offset}`))
@@ -80,14 +75,13 @@ const getPageByPokemonName = (name) => {
     getAllPokemons.then((data) => {
       const pokemons = data.results;
       const index = pokemons.findIndex((pokemon) => pokemon.name === name);
-      resolve(Math.ceil(++index / ITEMS_ON_PAGE));
+      resolve(Math.ceil(++index / PokemonPagination.ITEMS_ON_PAGE));
     });
   });
 };
 
 export {
   API_ENDPOINT,
-  ITEMS_ON_PAGE,
   getPokemonById,
   getPokemonByName,
   getPokemonsByPage,
