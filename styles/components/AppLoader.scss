@@ -1,0 +1,19 @@
+.app-loader-global,
+.app-loader-local {
+  background: rgba($grey-lightest, 0.4);
+}
+
+.app-loader-global {
+  position: fixed;
+  z-index: 3;
+}
+
+.app-loader-local {
+  position: absolute;
+  z-index: 1;
+}
+
+.app-loader {
+  border-left-color: $link;
+  border-bottom-color: $link;
+}
