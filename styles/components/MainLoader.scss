@@ -4,13 +4,13 @@
 }
 
 .app-loader-global {
-  position: fixed;
   z-index: 3;
+  position: fixed;
 }
 
 .app-loader-local {
+  z-index: 2;
   position: absolute;
-  z-index: 1;
 }
 
 .app-loader {

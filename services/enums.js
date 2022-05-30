@@ -2,14 +2,9 @@ const Responsive = {
   MOBILE_BREAKPOINT: 1215,
 };
 
-const Store = {
-  UI_POKEMON_DETAILS_WIDTH: "UI_POKEMON_DETAILS_WIDTH",
-  UI_POKEMON_LIST_HIGHLIGHT: "UI_POKEMON_LIST_HIGHLIGHT",
-
-  POKEMON_MAIN_LIST_ADD: "POKEMON_MAIN_LIST_ADD",
-  POKEMON_MAIN_LIST_CLEAR: "POKEMON_MAIN_LIST_CLEAR",
-  POKEMON_MAIN_LIST_PAGE: "POKEMON_MAIN_LIST_PAGE",
-  POKEMON_MAIN_LIST_COUNT: "POKEMON_MAIN_LIST_COUNT",
+const Storage = {
+  ITEM_STATE_UI: "ui",
+  ITEM_STATE_POKEMON_MAIN_LIST: "pokemonMainList",
 };
 
 const Pagination = {
@@ -26,4 +21,4 @@ const Handler = {
   DIRECTION_RIGHT: "HANDLER_DIRECTION_RIGHT",
 };
 
-export { Responsive, Store, Pagination, Handler };
+export { Responsive, Storage, Pagination, Handler };

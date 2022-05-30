@@ -1,14 +1,15 @@
 import PokemonPagination from "configs/pokemon-pagination";
+import { UI, PokemonMainList } from "store/enums";
 
 const uiReducerState = {
-  pokemonDetailsWidth: 0,
-  pokemonListHighlight: true,
+  [UI.POKEMON_DETAILS_WIDTH]: 0,
+  [UI.POKEMON_LIST_HIGHLIGHT]: true,
 };
 
 const pokemonMainListReducerState = {
-  pokemons: [],
-  count: 0,
-  page: PokemonPagination.INITIAL_PAGE,
+  [PokemonMainList.POKEMONS]: [],
+  [PokemonMainList.COUNT]: 0,
+  [PokemonMainList.PAGE]: PokemonPagination.INITIAL_PAGE,
 };
 
 export { uiReducerState, pokemonMainListReducerState };

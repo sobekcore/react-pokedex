@@ -3,7 +3,7 @@
  * @param {boolean} props.global
  * @returns {JSX.Element}
  */
-const AppLoader = (props) => {
+const MainLoader = (props) => {
   return (
     <>
       {props.loading && (
@@ -18,4 +18,4 @@ const AppLoader = (props) => {
   );
 };
 
-export default AppLoader;
+export default MainLoader;

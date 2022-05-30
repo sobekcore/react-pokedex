@@ -1,13 +1,16 @@
 import { combineReducers } from "redux";
-import { Store } from "services/enums";
 import { uiReducerState, pokemonMainListReducerState } from "store/states";
+import { Action } from "store/enums";
 
 const uiReducer = (state = uiReducerState, action) => {
   switch (action.type) {
-    case Store.UI_POKEMON_DETAILS_WIDTH:
+    case Action.UI_REVIVE_REDUCER:
+      return { ...uiReducerState, ...action.state };
+
+    case Action.UI_POKEMON_DETAILS_WIDTH:
       return { ...state, pokemonDetailsWidth: action.width };
 
-    case Store.UI_POKEMON_LIST_HIGHLIGHT:
+    case Action.UI_POKEMON_LIST_HIGHLIGHT:
       return { ...state, pokemonListHighlight: action.highlight };
 
     default:
@@ -17,7 +20,10 @@ const uiReducer = (state = uiReducerState, action) => {
 
 const pokemonMainListReducer = (state = pokemonMainListReducerState, action) => {
   switch (action.type) {
-    case Store.POKEMON_MAIN_LIST_ADD:
+    case Action.POKEMON_MAIN_LIST_REVIVE_REDUCER:
+      return { ...pokemonMainListReducerState, ...action.state };
+
+    case Action.POKEMON_MAIN_LIST_ADD:
       const index = state.pokemons.findIndex((element) => element.id === action.pokemon.id);
       const pokemonAlreadyExists = index !== -1;
 
@@ -29,13 +35,13 @@ const pokemonMainListReducer = (state = pokemonMainListReducerState, action) => 
 
       return state;
 
-    case Store.POKEMON_MAIN_LIST_CLEAR:
+    case Action.POKEMON_MAIN_LIST_CLEAR:
       return { ...state, pokemons: [] };
 
-    case Store.POKEMON_MAIN_LIST_PAGE:
+    case Action.POKEMON_MAIN_LIST_PAGE:
       return { ...state, page: action.page };
 
-    case Store.POKEMON_MAIN_LIST_COUNT:
+    case Action.POKEMON_MAIN_LIST_COUNT:
       return { ...state, count: action.count };
 
     default:

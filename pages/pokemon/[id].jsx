@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Handler } from "services/enums";
+import { Storage, Handler } from "services/enums";
 import { getPokemonById, getPageByPokemonName } from "services/api";
+import { saveStore } from "services/store";
 import { checkIfMobile } from "services/responsive";
 import { store } from "store/store";
 import { ui } from "store/actions";
 import styles from "styles/modules/PokemonPage.module.scss";
 
 import InitializeHandler from "components/common/Handler";
-import PokemonLoading from "components/PokemonLoading";
 import PokemonList from "components/PokemonList";
 import Pokemon from "components/Pokemon";
 
@@ -99,6 +99,7 @@ const PokemonPage = (props) => {
 
   const savePokemonDetailsWidth = (width) => {
     store.dispatch(ui.pokemonDetailsWidth(width));
+    saveStore([Storage.ITEM_STATE_UI]);
   };
 
   return (
@@ -116,9 +117,6 @@ const PokemonPage = (props) => {
         </>
       )}
       <section ref={pokemonDetailsElement} className={`${styles.details} is-relative is-width-100`}>
-        {isLoading && (
-          <PokemonLoading name={props.pokemon.name} />
-        )}
         {!isLoading && pokemon && (
           <Pokemon pokemon={pokemon} />
         )}

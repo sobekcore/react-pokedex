@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import ClassLogic from "configs/class-logic";
+import { Storage } from "services/enums";
 import { getPokemonByName } from "services/api";
+import { saveStore } from "services/store";
 import { store } from "store/store";
 import { ui, pokemonMainList } from "store/actions";
 import styles from "styles/modules/PokemonItem.module.scss";
@@ -23,6 +25,7 @@ const PokemonItem = (props) => {
   useEffect(() => {
     if (!props.pokemon.url) {
       setPokemon(props.pokemon);
+      scrollToItemElement();
       return;
     }
 
@@ -38,6 +41,7 @@ const PokemonItem = (props) => {
   const updatePokemonInStateAndStore = (pokemon) => {
     setPokemon(pokemon);
     store.dispatch(pokemonMainList.add(pokemon));
+    saveStore([Storage.ITEM_STATE_POKEMON_MAIN_LIST]);
   };
 
   const scrollToItemElement = () => {

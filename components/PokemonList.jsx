@@ -4,6 +4,7 @@ import { getPokemonsByPage } from "services/api";
 import { store } from "store/store";
 import { pokemonMainList } from "store/actions";
 
+import MainLoader from "components/common/MainLoader";
 import PokemonItem from "components/PokemonItem";
 import Pagination from "components/common/Pagination";
 
@@ -14,6 +15,7 @@ import Pagination from "components/common/Pagination";
  */
 const PokemonList = (props) => {
   const [isLoading, setLoading] = useState(!store.getState().pokemonMainList.pokemons.length);
+  const [isReloading, setReloading] = useState(false);
   const [pokemons, setPokemons] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(PokemonPagination.INITIAL_PAGE);
@@ -25,7 +27,7 @@ const PokemonList = (props) => {
     const pokemonMainListCount = store.getState().pokemonMainList.count;
 
     if (props.initialPage && pokemonMainListPage !== props.initialPage) {
-      fetchPokemonsAndSetState(props.initialPage);
+      fetchPokemonsAndSetState(props.initialPage, false);
       return;
     }
 
@@ -36,16 +38,21 @@ const PokemonList = (props) => {
       return;
     }
 
-    fetchPokemonsAndSetState(page);
+    fetchPokemonsAndSetState(page, false);
   }, [props.initialPage]);
 
-  const fetchPokemonsAndSetState = (page) => {
+  const fetchPokemonsAndSetState = (page, reload = true) => {
+    if (reload) {
+      setReloading(true);
+    }
+
     setPage(page);
     store.dispatch(pokemonMainList.page(page));
 
     getPokemonsByPage(page)
       .then((data) => setPokemonsAndCount(data))
       .then(() => setLoading(false))
+      .then(() => setReloading(false))
       .then(() => scrollToListElement());
   };
 
@@ -63,6 +70,9 @@ const PokemonList = (props) => {
 
   return (
     <>
+      {isReloading && (
+        <MainLoader loading={isReloading} global={false} />
+      )}
       {!isLoading && pokemons && (
         <>
           <ul ref={pokemonListElement} className="has-background-white">
