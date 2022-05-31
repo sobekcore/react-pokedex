@@ -4,7 +4,6 @@ import { getPokemonsByPage } from "services/api";
 import { store } from "store/store";
 import { pokemonMainList } from "store/actions";
 
-import MainLoader from "components/common/MainLoader";
 import PokemonItem from "components/PokemonItem";
 import Pagination from "components/common/Pagination";
 
@@ -27,7 +26,7 @@ const PokemonList = (props) => {
     const pokemonMainListCount = store.getState().pokemonMainList.count;
 
     if (props.initialPage && pokemonMainListPage !== props.initialPage) {
-      fetchPokemonsAndSetState(props.initialPage, false);
+      fetchPokemonsAndSetState(props.initialPage);
       return;
     }
 
@@ -38,14 +37,11 @@ const PokemonList = (props) => {
       return;
     }
 
-    fetchPokemonsAndSetState(page, false);
+    fetchPokemonsAndSetState(page);
   }, [props.initialPage]);
 
-  const fetchPokemonsAndSetState = (page, reload = true) => {
-    if (reload) {
-      setReloading(true);
-    }
-
+  const fetchPokemonsAndSetState = (page) => {
+    setReloading(true);
     setPage(page);
     store.dispatch(pokemonMainList.page(page));
 
@@ -70,9 +66,6 @@ const PokemonList = (props) => {
 
   return (
     <>
-      {isReloading && (
-        <MainLoader loading={isReloading} global={false} />
-      )}
       {!isLoading && pokemons && (
         <>
           <ul ref={pokemonListElement} className="has-background-white">
@@ -86,6 +79,7 @@ const PokemonList = (props) => {
             onPageChange={fetchPokemonsAndSetState}
             initialPage={page}
             itemsOnPage={PokemonPagination.ITEMS_ON_PAGE}
+            interactive={!isReloading}
           />
         </>
       )}

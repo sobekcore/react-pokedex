@@ -4,7 +4,7 @@ import { store } from "store/store";
 
 /**
  * @param {array} keys
- * @returns void
+ * @returns {void}
  */
 const saveStore = (keys) => {
   const state = store.getState();
@@ -18,10 +18,12 @@ const saveStore = (keys) => {
     }
 
     for (const [key, value] of Object.entries(elements)) {
-      if (!StoreReviveIgnore.includes(key)) {
-        stateWithoutIgnored[key] = value;
-        stateIsEmpty = false;
+      if (StoreReviveIgnore[name] && StoreReviveIgnore[name].includes(key)) {
+        continue;
       }
+
+      stateWithoutIgnored[key] = value;
+      stateIsEmpty = false;
     }
 
     if (stateIsEmpty) {
@@ -33,8 +35,8 @@ const saveStore = (keys) => {
 };
 
 /**
- * @param {string} keys
- * @returns void
+ * @param {string} key
+ * @returns {Promise}
  */
 const reviveStore = (key) => {
   return new Promise((resolve, reject) => {

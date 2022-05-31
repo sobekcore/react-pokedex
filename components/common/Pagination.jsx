@@ -28,6 +28,7 @@ let lastPage = firstPage;
  * @param {number} props.initialPage
  * @param {number} props.itemsOnPage
  * @param {number} props.pagesOnSides
+ * @param {boolean} props.interactive
  * @returns {JSX.Element}
  */
 const PaginationComponent = (props) => {
@@ -55,6 +56,10 @@ const PaginationComponent = (props) => {
   }, [props]);
 
   const changeCurrentPage = (page) => {
+    if (!props.interactive) {
+      return;
+    }
+
     if (currentPage !== page && page >= firstPage && page <= lastPage) {
       setCurrentPage(page);
       props.onPageChange(page);

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import ClassLogic from "configs/class-logic";
 import { Storage } from "services/enums";
 import { getPokemonByName } from "services/api";
-import { saveStore } from "services/store";
+import { saveStore } from "facades/store";
 import { store } from "store/store";
 import { ui, pokemonMainList } from "store/actions";
 import styles from "styles/modules/PokemonItem.module.scss";

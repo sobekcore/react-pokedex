@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Storage, Handler } from "services/enums";
 import { getPokemonById, getPageByPokemonName } from "services/api";
-import { saveStore } from "services/store";
 import { checkIfMobile } from "services/responsive";
+import { saveStore } from "facades/store";
 import { store } from "store/store";
 import { ui } from "store/actions";
 import styles from "styles/modules/PokemonPage.module.scss";

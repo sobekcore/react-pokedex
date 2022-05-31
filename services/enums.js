@@ -1,3 +1,15 @@
+const Http = {
+  GET: "get",
+  POST: "post",
+  PUT: "put",
+  DELETE: "delete",
+  PATCH: "patch",
+};
+
+const ContentType = {
+  JSON: "application/json",
+};
+
 const Responsive = {
   MOBILE_BREAKPOINT: 1215,
 };
@@ -21,4 +33,11 @@ const Handler = {
   DIRECTION_RIGHT: "HANDLER_DIRECTION_RIGHT",
 };
 
-export { Responsive, Storage, Pagination, Handler };
+export {
+  Http,
+  ContentType,
+  Responsive,
+  Storage,
+  Pagination,
+  Handler,
+};

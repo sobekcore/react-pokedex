@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Storage } from "services/enums";
-import { reviveStore } from "services/store";
+import { reviveStore } from "facades/store";
 import "styles/globals.scss";
 
 import Head from "next/head";

@@ -1,4 +1,3 @@
-import PokemonPagination from "configs/pokemon-pagination";
 import { UI, PokemonMainList } from "store/enums";
 
 const uiReducerState = {
@@ -9,7 +8,7 @@ const uiReducerState = {
 const pokemonMainListReducerState = {
   [PokemonMainList.POKEMONS]: [],
   [PokemonMainList.COUNT]: 0,
-  [PokemonMainList.PAGE]: PokemonPagination.INITIAL_PAGE,
+  [PokemonMainList.PAGE]: 1,
 };
 
 export { uiReducerState, pokemonMainListReducerState };
